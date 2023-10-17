@@ -1,4 +1,5 @@
-bentoml===1.0.10
+numpy==1.21.6
+bentoml==1.0.10
 dill==0.3.6
 distlib==0.3.6
 fs-s3fs==1.1.1
