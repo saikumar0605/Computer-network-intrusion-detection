@@ -16,7 +16,7 @@ class DataValidation:
     def __init__(self, data_ingestion_artifact: DataIngestionArtifact,
                  data_validation_config: DataValidationConfig):
         
-        self.dataingestion_artifact = data_ingestion_artifact
+        self.data_ingestion_artifact = data_ingestion_artifact
         self.data_validation_config = data_validation_config
 
         self.network_data: NetworkData = NetworkData()
@@ -36,7 +36,7 @@ class DataValidation:
 
             LengthOfFileName: int = dic["LengthOfFileName"]
             
-            column_names: str = dic["Columns"]
+            column_names: str = dic["Column"]
 
             NumberOfColumns: int = dic["NumberOfColumns"]
 
@@ -60,17 +60,17 @@ class DataValidation:
             raise NetworkException(e, sys)
 
     
-    def validte_raw_fname(self, 
+    def validate_raw_fname(self, 
                           LengthOfFileName:int) -> None:
         logging.info("Entered validate_raw_fname method of DataValidation Class")
 
         try:
             onlyfiles: List[str] = os.listdir(
-                self.dataingestion_artifact.feature_store_folder_path
+                self.data_ingestion_artifact.feature_store_folder_path
             )
 
             logging.info(
-                f"Got a list of files from {self.dataingestion_artifact.feature_store_folder_path}"
+                f"Got a list of files from {self.data_ingestion_artifact.feature_store_folder_path}"
             )
 
             regex: str = read_text(

@@ -1,7 +1,7 @@
 SampleFileName: network_08012020_120000.csv
 LengthOfFileName: 10
-NumberofColumns: 42
-ColName:
+NumberOfColumns: 42
+Column:
   duration: INTEGER
   protocol_type: OBJECT
   service: OBJECT
