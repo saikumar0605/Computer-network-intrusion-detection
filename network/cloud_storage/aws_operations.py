@@ -9,7 +9,7 @@ class S3Sync:
     def sync_folder_to_s3(self, folder: str, bucket_name: str, bucket_folder_name: str):
         try: 
             command: str = (
-                f"aws s3 sync {folder} s3://{bucket_name}/{bucket_folder_name}/ "
+                f"aws s3 sync {folder} s3://networkdata1/{bucket_folder_name}/ "
             )
             os.system(command)
 
@@ -21,7 +21,7 @@ class S3Sync:
     ) -> None:
         try:
             command: str = (
-                f"aws s3 sync s3://{bucket_name}/{bucket_folder_name}/ {folder}"
+                f"aws s3 sync s3://networkdata1/{bucket_folder_name}/ {folder}"
             )
             os.system(command)
         except Exception as e:
