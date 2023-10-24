@@ -1,6 +1,6 @@
-SampleFileName: network_08012020_120000.csv
+SampleFileName: cyber_data.csv
 LengthOfFileName: 10
-NumberOfColumns: 42
+NumberOfColumns: 43
 Column:
   duration: INTEGER
   protocol_type: OBJECT

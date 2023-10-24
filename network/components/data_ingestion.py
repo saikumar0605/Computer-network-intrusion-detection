@@ -47,7 +47,7 @@ class DataIngestion:
                   feature_store_folder_name= self.data_ingestion_config.data_ingestion_feature_store_folder_name
          )
              ##after it will go to artifacts entity which happens in every stage..
-             data_ingestion_artifact: DataIngestionArtifact = DataIngestionArtifact(
+             data_ingestion_artifact = DataIngestionArtifact(
                  feature_store_folder_path= self.data_ingestion_config.data_ingestion_feature_store_folder_name
             )
              return data_ingestion_artifact
