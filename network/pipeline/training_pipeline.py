@@ -4,12 +4,14 @@ import os
 from network.components.data_ingestion import DataIngestion
 from network.components.data_validation import DataValidation
 from network.components.data_transformation import DataTransformation
+from network.components.model_trainer import ModelTrainer
 
 
 from network.entity.artifact_entity import (
     DataIngestionArtifact,
     DataValidationArtifact,
     DataTransformationArtifact,
+    ModelTrainerArtifact
 )
 
 from network.entity.config_entity import (
@@ -17,6 +19,7 @@ from network.entity.config_entity import (
     DataIngestionConfig,
     DataValidationConfig,
     DataTransformationConfig,
+    ModelTrainerConfig
 )
 
 from network.exception import NetworkException
@@ -101,6 +104,32 @@ class TrainingPipeline:
             raise NetworkException(e, sys)
         
 
+    def start_model_trainer(
+        self, data_transformation_artifact: DataTransformationArtifact
+    ) -> ModelTrainerArtifact:
+       
+        try:
+            self.model_trainer_config: ModelTrainerConfig = (
+                ModelTrainerConfig(
+                    training_pipeline_config=self.training_pipeline_config
+                )
+            )
+
+            model_trainer: ModelTrainer = ModelTrainer(
+                data_transformation_artifact=data_transformation_artifact,
+                model_trainer_config= self.model_trainer_config,
+            )
+
+            model_trainer_artifact: ModelTrainerArtifact = (
+                model_trainer.initiate_model_trainer()
+            )
+
+            return model_trainer_artifact
+
+        except Exception as e:
+            raise NetworkException(e, sys)
+        
+
 
 
     def run_pipeline(self):
@@ -110,7 +139,10 @@ class TrainingPipeline:
             data_transformation_artifact: DataTransformationArtifact = self.start_data_transformation(
                 data_validation_artifact=data_validation_artifact
             )
-            return data_transformation_artifact
+            model_trainer_artifact: ModelTrainerArtifact = self.start_model_trainer(
+                    data_transformation_artifact= data_transformation_artifact
+            )
+            return model_trainer_artifact
         
         except Exception as e:
             raise NetworkException(e, sys)

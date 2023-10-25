@@ -25,15 +25,9 @@ class ClassificationMetricArtifact:
     roc_auc_score: float
 
 
-# @dataclass
-# class ModelTrainerArtifact:
-#     trained_model_list: List
-
-#     trained_model_dir: str
-
-#     best_model_dir: str
-
-#     best_model_name: str
+@dataclass
+class ModelTrainerArtifact:
+    best_model_path: str
 
 
 # @dataclass

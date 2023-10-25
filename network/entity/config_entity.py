@@ -141,20 +141,11 @@ class ModelTrainerConfig:
             training_pipeline.MODEL_TRAINER_DIR_NAME,
         )
 
-        self.trained_model_file_dir: str = os.path.join(
-            self.model_trainer_dir, training_pipeline.MODEL_TRAINER_TRAINED_MODEL_DIR
-        )
-
-        self.best_model_file_dir: str = os.path.join(
-            self.model_trainer_dir, training_pipeline.MODEL_TRAINER_BEST_MODEL_DIR
+        self.trained_model_file_path: str = os.path.join(
+            self.model_trainer_dir, training_pipeline.MODEL_FILE_NAME
         )
 
         self.expected_score: float = training_pipeline.MODEL_TRAINER_EXPECTED_SCORE
-
-        self.model_config_file_path: str = (
-            training_pipeline.MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
-        )
-
         self.mlflow_model_metric_key: str = (
             training_pipeline.MODEL_TRAINER_MODEL_METRIC_KEY
         )

@@ -5,9 +5,11 @@ from datetime import datetime
 
 import numpy as np
 
+
 TIMESTAMP = datetime = datetime.now().strftime("%m_%d_%Y")
 PIPELINE_NAME: str = "network-intrusion"
 ARTIFACTS_DIR: str = "artifacts"
+EXP_NAME: str = f"{PIPELINE_NAME}-{TIMESTAMP}"
 #names of dirs. this dirs or pipeline code in congig_entity.py file.
 
 
@@ -52,3 +54,12 @@ PREPROCSSING_OBJECT_FILE_NAME = "preprocessor_object.dill"
 DATA_TRANSFORMATION_TRAIN_FILE_PATH: str = "train.npy"
 DATA_TRANSFORMATION_TEST_FILE_PATH: str = "test.npy"
 DATA_TRANSFORMATION_VALID_FILE_PATH: str = "valid.npy"
+
+
+"""Constants for Model Training
+"""
+MODEL_TRAINER_DIR_NAME: str = "model_trainer"
+MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_FILE_NAME: str = "model.dill"
+MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
+MODEL_TRAINER_MODEL_METRIC_KEY: str = "confusion_matrix"
