@@ -12,13 +12,14 @@ from network.utils import main_utils
 from config.config import params
 from network.constant import training_pipeline
 from network.entity.artifact_entity import (
-    ClassificationMetricArtifact,
     DataTransformationArtifact,
     ModelTrainerArtifact,
 )
 from network.entity.config_entity import ModelTrainerConfig
 from network.exception import NetworkException
 from network.logger import logging
+from network.configuration.mlflow_connection import MLFlowClient
+
 
 class ModelTrainer:
     def __init__(self, 
@@ -27,6 +28,7 @@ class ModelTrainer:
         self.data_transformation_artifact = data_transformation_artifact
         self.model_trainer_config = model_trainer_config
         self.model = None
+        self.mlflow_client = MLFlowClient() 
 
     def build_model(self, input_dim: int):
         model = keras.Sequential([
@@ -50,27 +52,27 @@ class ModelTrainer:
         
         model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
         return model
-
+    
     def train_model(self, x_train, y_train, x_test, y_test, input_dim: int):
         self.model = self.build_model(input_dim=input_dim)
+        
+        # Start a new MLflow run
+        mlflow.start_run()
         mlflow.tensorflow.autolog()  # Enable MLflow autologging for TensorFlow
 
-        mlflow.end_run()
+        logging.info("Train your model and log metrics")
 
-        with mlflow.start_run():
-            logging.info("Train your model and log metrics")
-
-            early_stopping = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
-            history = self.model.fit(x_train, y_train, validation_data=(x_test, y_test), 
-                                     epochs=10,callbacks=[early_stopping])
-
+        early_stopping = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
+        history = self.model.fit(x_train, y_train, validation_data=(x_test, y_test), epochs=10, callbacks=[early_stopping])
             
-            mlflow.log_metrics({
-                "train_loss": history.history['loss'][-1],
-                "train_accuracy": history.history['accuracy'][-1],
-                "validation_loss": history.history['val_loss'][-1],
-                "validation_accuracy": history.history['val_accuracy'][-1],
-            })
+        # Log metrics to the active MLflow run
+        mlflow.log_metrics({
+            "train_loss": history.history['loss'][-1],
+            "train_accuracy": history.history['accuracy'][-1],
+            "validation_loss": history.history['val_loss'][-1],
+            "validation_accuracy": history.history['val_accuracy'][-1],
+        })
+
 
     def initiate_model_trainer(self) -> ModelTrainerArtifact:
         try:
@@ -114,7 +116,14 @@ class ModelTrainer:
                 "Exited initiate_data_transformation method of DataTransformation class"
             )
 
+            
+
             return model_trainer_artifact
             
         except Exception as e:
             raise NetworkException(e, sys)
+        
+    mlflow.end_run()
+
+
+#export MLFLOW_TRACKING_URI="http://your.mlflow.url:5000"
