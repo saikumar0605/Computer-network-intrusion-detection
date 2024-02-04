@@ -22,3 +22,5 @@ class MLFlowClient:
         self.client = MLFlowClient.client
 """ in this connection file we define the conection to mlflow so we dont need to call again and again.
 """
+
+#Command to run mlflow using sqlite :== mlflow server --backend-store-uri sqlite:///mlflowdb --default-artifact-root s3://network-mlflow-bucket/ --host 0.0.0.0 -p 8000
