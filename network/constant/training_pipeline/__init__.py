@@ -63,3 +63,9 @@ MODEL_TRAINER_TRAINED_MODEL_DIR: str = "trained_model"
 MODEL_FILE_NAME: str = "model.dill"
 MODEL_TRAINER_EXPECTED_SCORE: float = 0.6
 MODEL_TRAINER_MODEL_METRIC_KEY: str = "confusion_matrix"
+
+"""Constants for Model Evaluation
+"""
+MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE: float = 0.03
+MODEL_EVALUATION_THRESHOLD: float = 0.6
+MODEL_EVALUATION_MODEL_TYPE: str = "classifier"

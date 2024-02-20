@@ -127,3 +127,5 @@ class ModelTrainer:
 
 
 #export MLFLOW_TRACKING_URI="http://your.mlflow.url:5000"
+# mlflow server --backend-store-uri sqlite:///mlruns.db --host 0.0.0.0 -p 8000
+

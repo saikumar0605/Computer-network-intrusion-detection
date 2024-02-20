@@ -5,13 +5,15 @@ from network.components.data_ingestion import DataIngestion
 from network.components.data_validation import DataValidation
 from network.components.data_transformation import DataTransformation
 from network.components.model_trainer import ModelTrainer
+from network.components.model_evaluation import ModelEvaluator
 
 
 from network.entity.artifact_entity import (
     DataIngestionArtifact,
     DataValidationArtifact,
     DataTransformationArtifact,
-    ModelTrainerArtifact
+    ModelTrainerArtifact,
+    ModelEvaluationArtifact
 )
 
 from network.entity.config_entity import (
@@ -19,7 +21,8 @@ from network.entity.config_entity import (
     DataIngestionConfig,
     DataValidationConfig,
     DataTransformationConfig,
-    ModelTrainerConfig
+    ModelTrainerConfig,
+    ModelEvaluationConfig
 )
 
 from network.exception import NetworkException
@@ -129,7 +132,37 @@ class TrainingPipeline:
         except Exception as e:
             raise NetworkException(e, sys)
         
+    def start_model_evaluation(
+        self,
+        # model_eval_config: ModelEvaluationConfig,
+        model_trainer_artifact: ModelTrainerArtifact,
+    ) -> ModelEvaluationArtifact:
+        """
+        It takes in two artifacts, one from the data validation step and one from the model training step,
+        and returns an artifact from the model evaluation step
 
+        Args:
+          data_validation_artifact (DataValidationArtifact): DataValidationArtifact
+          model_trainer_artifact (ModelTrainerArtifact): This is the artifact that is returned by the model
+        trainer.
+
+        Returns:
+          ModelEvaluationArtifact
+        """
+        try:
+            self.model_eval_config: ModelEvaluationConfig = ModelEvaluationConfig()
+
+            model_evaluation = ModelEvaluator(
+                model_eval_config=self.model_eval_config,
+                model_trainer_artifact=model_trainer_artifact,
+            )
+
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
+
+            return model_evaluation_artifact
+        
+        except Exception as e:
+            raise NetworkException(e, sys)
 
 
     def run_pipeline(self):
@@ -142,7 +175,11 @@ class TrainingPipeline:
             model_trainer_artifact: ModelTrainerArtifact = self.start_model_trainer(
                     data_transformation_artifact= data_transformation_artifact
             )
-            return model_trainer_artifact
+            model_evaluation_artifact: ModelEvaluationArtifact = self.start_model_evaluation(
+                # data_transformation_artifact= data_transformation_artifact,
+                model_trainer_artifact= model_trainer_artifact
+            )
+            return model_evaluation_artifact
         
         except Exception as e:
             raise NetworkException(e, sys)

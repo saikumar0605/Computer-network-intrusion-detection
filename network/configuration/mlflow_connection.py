@@ -24,3 +24,4 @@ class MLFlowClient:
 """
 
 #Command to run mlflow using sqlite :== mlflow server --backend-store-uri sqlite:///mlflowdb --default-artifact-root s3://network-mlflow-bucket/ --host 0.0.0.0 -p 8000
+# local run = mlflow server --backend-store-uri sqlite:///mlflowdb --host 0.0.0.0 -p 8000

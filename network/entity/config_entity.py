@@ -164,27 +164,27 @@ class ModelEvaluationConfig:
         self.model_type: str = training_pipeline.MODEL_EVALUATION_MODEL_TYPE
 
 
-class ModelPusherConfig:
-    def __init__(self):
-        self.production_model_stage: str = (
-            training_pipeline.MODEL_PUSHER_PROD_MODEL_STAGE
-        )
+# class ModelPusherConfig:
+#     def __init__(self):
+#         self.production_model_stage: str = (
+#             training_pipeline.MODEL_PUSHER_PROD_MODEL_STAGE
+#         )
 
-        self.staging_model_stage: str = training_pipeline.MODEL_PUSHER_STAG_MODEL_STAGE
+#         self.staging_model_stage: str = training_pipeline.MODEL_PUSHER_STAG_MODEL_STAGE
 
-        self.archive_existing_versions: bool = (
-            training_pipeline.MODEL_PUSHER_ARCHIVE_EXISTING_VERSIONS
-        )
+#         self.archive_existing_versions: bool = (
+#             training_pipeline.MODEL_PUSHER_ARCHIVE_EXISTING_VERSIONS
+#         )
 
-        self.bento_model_name: str = training_pipeline.MODEL_PUSHER_BENTOML_MODEL_NAME
+#         self.bento_model_name: str = training_pipeline.MODEL_PUSHER_BENTOML_MODEL_NAME
 
-        self.bento_model_service_name: str = (
-            training_pipeline.MODEL_PUSHER_BENTOML_SERVICE_NAME
-        )
+#         self.bento_model_service_name: str = (
+#             training_pipeline.MODEL_PUSHER_BENTOML_SERVICE_NAME
+#         )
 
-        self.bento_model_image_name: str = (
-            training_pipeline.MODEL_PUSHER_BENTOML_MODEL_IMAGE
-        )
+#         self.bento_model_image_name: str = (
+#             training_pipeline.MODEL_PUSHER_BENTOML_MODEL_IMAGE
+#         )
 
 
 @dataclass

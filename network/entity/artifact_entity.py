@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from network.entity.config_entity import MLFlowModelInfo
+
 @dataclass
 class DataIngestionArtifact:
     feature_store_folder_path: str
@@ -28,15 +30,15 @@ class ModelTrainerArtifact:
     best_model_path: str
 
 
-# @dataclass
-# class ModelEvaluationArtifact:
-#     is_model_accepted: bool
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted: bool
 
-#     trained_model_info: MLFlowModelInfo
+    trained_model_info: MLFlowModelInfo
 
-#     accepted_model_info: MLFlowModelInfo
+    accepted_model_info: MLFlowModelInfo
 
-#     prod_model_info: MLFlowModelInfo
+    prod_model_info: MLFlowModelInfo
 
 
 # @dataclass
