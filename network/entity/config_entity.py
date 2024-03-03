@@ -152,7 +152,7 @@ class ModelTrainerConfig:
 
 
 class ModelEvaluationConfig:
-    def __init__(self):
+    def __init__(self, training_pipeline_config: TrainingPipelineConfig):
         self.min_absolute_change: float = (
             training_pipeline.MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE
         )

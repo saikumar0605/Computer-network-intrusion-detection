@@ -22,7 +22,10 @@ class DataTransformationArtifact:
     transformed_valid_file_path: str
 
 
- 
+@dataclass
+class ClassificationMetricArtifact:
+    roc_auc_score: float
+
 
 
 @dataclass
