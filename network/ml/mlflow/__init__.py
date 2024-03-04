@@ -2,7 +2,7 @@ import sys
 from typing import Dict, List, Tuple, Union
 
 import mlflow
-
+from tensorflow import keras
 from network.configuration.mlflow_connection import MLFlowClient
 from network.constant import training_pipeline
 from network.entity.artifact_entity import ClassificationMetricArtifact
@@ -41,7 +41,7 @@ class MLFLowOperation:
 
             logging.info(f"Logged {model_parameters} model parameters")
 
-            mlflow.pyfunc.log_model(
+            mlflow.keras.log_model(
                 artifact_path=model.trained_model_object.__class__.__name__,
                 python_model=model,
                 registered_model_name=model.trained_model_object.__class__.__name__
@@ -80,7 +80,7 @@ class MLFLowOperation:
         logging.info("Entered get_model_info method of MLFLowOperation class")
 
         try:
-            trained_best_model_info: Tuple[str, str, str, str] = [
+            trained_best_model_info: Tuple[str, str, str, str, str] = [
                 (
                     rm.name,
                     rm.latest_versions[0].current_stage,
