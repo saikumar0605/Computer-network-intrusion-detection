@@ -5,6 +5,7 @@ import mlflow
 import pandas as pd
 from mlflow.models import EvaluationResult, MetricThreshold
 from mlflow.models.evaluation.validation import ModelValidationFailedException
+from tensorflow import keras
 
 from network.constant import training_pipeline
 from network.entity.artifact_entity import (
@@ -67,6 +68,17 @@ class ModelEvaluation:
             )
 
             logging.info("Split the dataset into features and targets")
+
+            # # Get the last run id
+            # last_run_id = mlflow.search_runs()
+
+            # # Print the last run id
+            # logging.info(last_run_id[0])
+
+            # model_uri = f"runs:/{mlflow.last_active_run().info.run_id}/model"
+            # model = mlflow.keras.load_model(
+            #     model_uri=model_uri
+            # )
 
             trained_model_info: MLFlowModelInfo = self.mlflow_op.get_model_info(
                 best_model_name=self.model_trainer_artifact.best_model_path
