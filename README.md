@@ -1,7 +1,5 @@
 # Computer-network-intrusion-detection
 
-## Computer Network Intrusion Detection
-
 ### Overview
 This project focuses on enhancing cybersecurity by implementing a robust Computer Network Intrusion Detection system. Leveraging the power of Artificial Neural Networks (ANN) for code execution, AWS S3 for efficient data storage, and MLflow for model registry and tracking, we have achieved an impressive 97% accuracy in detecting and mitigating network intrusions.
 
